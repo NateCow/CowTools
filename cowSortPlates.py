@@ -27,7 +27,7 @@ print("NateCow's Premiere Project Manager VFX Plate Mover 9000\n\n")
 # Get the Premiere and VFX directories from user
 print('Paste Premiere output directory (source):')
 sourcePath = input()
-
+#TODO: Input validation to make sure a valid directory has been provided.
 print('\nPaste VFX directory (destination):')
 vfxDir = input()
 shotList = os.listdir(vfxDir)
