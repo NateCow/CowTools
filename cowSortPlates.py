@@ -1,6 +1,6 @@
 #===============================================================================
-# cowSortPlates
-# Version: 1.0.0
+# cowSortPlates.py
+# Version: 1.0.1
 # Last Updated: July 19, 2020
 # Author: Nathaniel Caauwe
 # www.NateCow.com
@@ -19,17 +19,15 @@
 # 2. Plate names lead with the same string as the individual shot directories
 #================================================================================
 
-import re, os, shutil, glob, time
+import os, shutil, glob, time
 from pathlib import Path
 
 print("NateCow's Premiere Project Manager VFX Plate Mover 9000\n\n")
 
 # Get the Premiere and VFX directories from user
-print('Paste Premiere output directory (source):')
-sourcePath = input()
+sourcePath = input('Paste Premiere output directory (source): ')
 #TODO: Input validation to make sure a valid directory has been provided.
-print('\nPaste VFX directory (destination):')
-vfxDir = input()
+vfxDir = input('\nPaste VFX directory (destination): ')
 shotList = os.listdir(vfxDir)
 
 os.chdir(sourcePath)
@@ -57,5 +55,4 @@ for shot in shotList:
 
 message = "Job's done!"
 print("-"*len(message) + "\n" + message + "\n")
-print("Exiting...")
-time.sleep(3)
+input('Press Enter to exit')
