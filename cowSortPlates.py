@@ -1,6 +1,6 @@
 #===============================================================================
 # cowSortPlates.py
-# Version: 1.0.1
+# Version: 1.0.2
 # Last Updated: July 19, 2020
 # Author: Nathaniel Caauwe
 # www.NateCow.com
@@ -15,6 +15,7 @@
 #   Shot_number
 #       live_action
 #           exr
+#             plate_name
 #
 # 2. Plate names lead with the same string as the individual shot directories
 #================================================================================
@@ -34,7 +35,6 @@ os.chdir(sourcePath)
 time.sleep(1)
 
 print('\nHold onto your butts...\n')
-time.sleep(1)
 
 # Test directories
 # S:\Development\Automation\Transcoded_Brothers_Quarrel_Full_v05
@@ -43,11 +43,13 @@ time.sleep(1)
 
 for shot in shotList:
 
-    frames = glob.glob(f'{shot}*')
-    dest = Path(f'{vfxDir}/{shot}/live_action/exr') #TODO: Make sub-directories user controlled
+    frames = glob.glob(f'{shot}*')    
     
     if len(frames):
         fileName = frames[0].split('.')[0]
+        os.mkdir(f'{vfxDir}/{shot}/live_action/exr/{fileName}')
+        dest = Path(f'{vfxDir}/{shot}/live_action/exr/{fileName}') #TODO: Make sub-directories user controlled
+        
         print(f'Moving  {fileName}  to  {dest}')
 
         for f in frames:
