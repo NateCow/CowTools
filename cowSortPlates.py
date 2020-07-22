@@ -1,7 +1,7 @@
 #===============================================================================
 # cowSortPlates.py
-# Version: 1.0.2
-# Last Updated: July 19, 2020
+# Version: 1.0.3
+# Last Updated: July 21, 2020
 # Author: Nathaniel Caauwe
 # www.NateCow.com
 #===============================================================================
@@ -47,8 +47,9 @@ for shot in shotList:
     
     if len(frames):
         fileName = frames[0].split('.')[0]
-        os.mkdir(f'{vfxDir}/{shot}/live_action/exr/{fileName}')
-        dest = Path(f'{vfxDir}/{shot}/live_action/exr/{fileName}') #TODO: Make sub-directories user controlled
+        newDir = f'{vfxDir}/{shot}/live_action/exr/{fileName}'
+        os.mkdir(newDir)
+        dest = Path(newDir) #TODO: Make sub-directories user controlled
         
         print(f'Moving  {fileName}  to  {dest}')
 

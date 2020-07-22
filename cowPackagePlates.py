@@ -1,7 +1,7 @@
 #===============================================================================
 # cowPackagePlates.py
-# Version: 1.0.0
-# Last Updated: July 19, 2020
+# Version: 1.0.1
+# Last Updated: July 21, 2020
 # Author: Nathaniel Caauwe
 # www.NateCow.com
 #===============================================================================
@@ -18,27 +18,26 @@
 #
 #================================================================================
 
-import re, os, shutil, glob, time, zipfile
+import os, shutil, glob, time
 import pyinputplus as pyip
 from pathlib import Path
 
 print("Cow Plate Packer\n")
 
 projectCode = input('Please enter the project code: ')
-vfxDir = input('\nPlease paste VFX directory: ')
+vfxDir = input('Please paste VFX directory: ')
 
 # Convert input string to list using .split()
-shots = input('\nPlease enter the shot numbers, separated by spaces: ').split(" ")
-label = pyip.inputMenu(['main', 'DN'], prompt='\nPlease select main EXR plates for comp or denoised JPEG plates for roto:\n', numbered=True)
-dest = input('\nPlease paste the output directory: ')
-packageName = input('\nPlease provide a name for the zip file: ')
-destFolder = Path(f'{dest}/{packageName}')
+shots = input('Please enter the shot numbers, separated by spaces: ').split(" ")
+format = pyip.inputMenu(['EXR', 'JPG'], prompt='Please select the type of plates you need:\n', numbered=True)
+packageName = input('Please provide a name for the zip file: ')
+destFolder = Path(f'{vfxDir}/_Packages/{packageName}')
 
 #TODO: Need to deal with more types of plates and possible versions.
-if label == 'main':
-    format = 'exr'
-elif label == 'DN':
-    format = 'jpg'
+if format.lower() == 'exr':
+    label = 'main'
+elif format.lower() == 'jpg':
+    label = 'DN'
 
 
 # Create master list with project code appended
@@ -49,7 +48,7 @@ print(f'\nRetrieving {format} plates...')
 
 for shot in shotList:
 
-    print(f'Copying  {fileName} ...')
+    print(f'Copying  {fileName[0]} ...')
     
     target = Path(f'{vfxDir}/{shot}/live_action/{format}/')
 
@@ -61,4 +60,7 @@ for shot in shotList:
 
 message = "Job's done!"
 print("-"*len(message) + "\n" + message + "\n")
-input('Press Enter to exit')
+print(f'Plates copied to: {destFolder}')
+input('\nPress Enter to exit and open directory...')
+
+os.system(f'start {destFolder}')
