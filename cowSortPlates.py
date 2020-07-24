@@ -49,7 +49,7 @@ for shot in shotList:
     if len(frames):
         fileName = frames[0].split('.')[0]
         newDir = f'{vfxDir}/{shot}/live_action/{fileName}/exr'
-        os.mkdir(newDir)
+        os.makedirs(newDir)
         dest = Path(newDir) #TODO: Make sub-directories user controlled
         
         print(f'Moving  {fileName}  to  {dest}')

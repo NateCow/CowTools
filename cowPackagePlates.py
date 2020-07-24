@@ -1,6 +1,6 @@
 #===============================================================================
 # cowPackagePlates.py
-# Version: 1.1.1
+# Version: 1.1.2
 # Last Updated: July 23, 2020
 # Author: Nathaniel Caauwe
 # www.NateCow.com
@@ -48,16 +48,18 @@ shotList = [projectCode+'_'+s for s in shots]
 filename = [projectCode+'_'+s+'_plate_'+label for s in shots]
 
 packageFolder = Path(f'{vfxDir}/_Packages/{packageName}')
-destFolder = Path(f'{packageFolder}/{filename[0]}')
+
 
 print(f'\nRetrieving {format} plates...')
 
 
 for shot in shotList:
-
-    print(f'Copying  {filename[0]} ...')
     
-    target = Path(f'{vfxDir}/{shot}/live_action/{filename[0]}/{format}')
+    shotName = shot+'_plate_'+label
+    print(f'Copying  {shotName} ...')
+    
+    target = Path(f'{vfxDir}/{shot}/live_action/{shotName}/{format.lower()}')
+    destFolder = Path(f'{packageFolder}/{shotName}')
     shutil.copytree(target, destFolder, dirs_exist_ok=True)
 
 """
