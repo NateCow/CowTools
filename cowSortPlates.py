@@ -1,7 +1,7 @@
 #===============================================================================
 # cowSortPlates.py
-# Version: 1.0.3
-# Last Updated: July 21, 2020
+# Version: 1.1.0
+# Last Updated: July 23, 2020
 # Author: Nathaniel Caauwe
 # www.NateCow.com
 #===============================================================================
@@ -14,8 +14,9 @@
 # 1. A VFX directory as such:
 #   Shot_number
 #       live_action
-#           exr
-#             plate_name
+#           plate_name
+#             exr
+#               exr_sequence
 #
 # 2. Plate names lead with the same string as the individual shot directories
 #================================================================================
@@ -47,7 +48,7 @@ for shot in shotList:
     
     if len(frames):
         fileName = frames[0].split('.')[0]
-        newDir = f'{vfxDir}/{shot}/live_action/exr/{fileName}'
+        newDir = f'{vfxDir}/{shot}/live_action/{fileName}/exr'
         os.mkdir(newDir)
         dest = Path(newDir) #TODO: Make sub-directories user controlled
         

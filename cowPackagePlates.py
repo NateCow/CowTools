@@ -1,7 +1,7 @@
 #===============================================================================
 # cowPackagePlates.py
-# Version: 1.0.1
-# Last Updated: July 21, 2020
+# Version: 1.1.1
+# Last Updated: July 23, 2020
 # Author: Nathaniel Caauwe
 # www.NateCow.com
 #===============================================================================
@@ -13,8 +13,11 @@
 # Currently assumes Shot-based file hierarchy:
 #   Shot_number
 #       live_action
-#           exr
-#           jpg
+#           plate_name
+#             exr
+#               exr_sequence
+#             jpg
+#               jpg_sequence
 #
 #================================================================================
 
@@ -31,9 +34,9 @@ vfxDir = input('Please paste VFX directory: ')
 shots = input('Please enter the shot numbers, separated by spaces: ').split(" ")
 format = pyip.inputMenu(['EXR', 'JPG'], prompt='Please select the type of plates you need:\n', numbered=True)
 packageName = input('Please provide a name for the zip file: ')
-destFolder = Path(f'{vfxDir}/_Packages/{packageName}')
 
-#TODO: Need to deal with more types of plates and possible versions.
+
+#TODO: Comp should copy the entire shot directory. See about not utilizing an exr/jpg folder under live_action
 if format.lower() == 'exr':
     label = 'main'
 elif format.lower() == 'jpg':
@@ -42,17 +45,27 @@ elif format.lower() == 'jpg':
 
 # Create master list with project code appended
 shotList = [projectCode+'_'+s for s in shots]
-fileName = [projectCode+'_'+s+'_plate_'+label for s in shots]
+filename = [projectCode+'_'+s+'_plate_'+label for s in shots]
+
+packageFolder = Path(f'{vfxDir}/_Packages/{packageName}')
+destFolder = Path(f'{packageFolder}/{filename[0]}')
+
 print(f'\nRetrieving {format} plates...')
 
 
 for shot in shotList:
 
-    print(f'Copying  {fileName[0]} ...')
+    print(f'Copying  {filename[0]} ...')
     
-    target = Path(f'{vfxDir}/{shot}/live_action/{format}/')
-
+    target = Path(f'{vfxDir}/{shot}/live_action/{filename[0]}/{format}')
     shutil.copytree(target, destFolder, dirs_exist_ok=True)
+
+"""
+if format.lower() == 'jpg':
+    copyJPGs()
+elif format.lower() == 'exr':
+    copyEXRs()
+"""
 
 #TODO: Make this work:
 #package = zipfile.ZipFile(f'{destFolder}/{packageName}.zip')
@@ -60,7 +73,7 @@ for shot in shotList:
 
 message = "Job's done!"
 print("-"*len(message) + "\n" + message + "\n")
-print(f'Plates copied to: {destFolder}')
+print(f'Plates copied to: {packageFolder}')
 input('\nPress Enter to exit and open directory...')
 
-os.system(f'start {destFolder}')
+os.system(f'start {packageFolder}')
