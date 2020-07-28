@@ -1,6 +1,6 @@
 #===============================================================================
 # cowPackagePlates.py
-# Version: 1.1.2
+# Version: 1.1.3
 # Last Updated: July 23, 2020
 # Author: Nathaniel Caauwe
 # www.NateCow.com
@@ -28,7 +28,14 @@ from pathlib import Path
 print("Cow Plate Packer\n")
 
 projectCode = input('Please enter the project code: ')
-vfxDir = input('Please paste VFX directory: ')
+if projectCode == 'bell':
+    vfxDir = 'S:/Projects/bell/vfx'
+    print(f'Setting VFX directory to: {vfxDir}')
+elif projectCode == 'bro':
+    vfxDir = 'S:/Projects/Brothers_Quarrel/bro_vfx'
+    print(f'Setting VFX directory to: {vfxDir}')
+else:
+    vfxDir = input('Please paste VFX directory: ')
 
 # Convert input string to list using .split()
 shots = input('Please enter the shot numbers, separated by spaces: ').split(" ")
@@ -45,7 +52,7 @@ elif format.lower() == 'jpg':
 
 # Create master list with project code appended
 shotList = [projectCode+'_'+s for s in shots]
-filename = [projectCode+'_'+s+'_plate_'+label for s in shots]
+#filename = [projectCode+'_'+s+'_plt_'+label+'_v001' for s in shots]
 
 packageFolder = Path(f'{vfxDir}/_Packages/{packageName}')
 
@@ -55,7 +62,7 @@ print(f'\nRetrieving {format} plates...')
 
 for shot in shotList:
     
-    shotName = shot+'_plate_'+label
+    shotName = shot+'_plt_'+label+'_v001'
     print(f'Copying  {shotName} ...')
     
     target = Path(f'{vfxDir}/{shot}/live_action/{shotName}/{format.lower()}')
