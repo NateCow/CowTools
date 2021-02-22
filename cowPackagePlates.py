@@ -1,6 +1,6 @@
 #===============================================================================
 # cowPackagePlates.py
-# Version: 1.1.3
+# Version: 1.1.4
 # Last Updated: July 23, 2020
 # Author: Nathaniel Caauwe
 # www.NateCow.com
@@ -34,6 +34,9 @@ if projectCode == 'bell':
 elif projectCode == 'bro':
     vfxDir = 'S:/Projects/Brothers_Quarrel/bro_vfx'
     print(f'Setting VFX directory to: {vfxDir}')
+elif projectCode == 'room':
+    vfxDir = 'S:/Projects/room/vfx'
+    print(f'Setting VFX directory to: {vfxDir}')
 else:
     vfxDir = input('Please paste VFX directory: ')
 
@@ -62,7 +65,7 @@ print(f'\nRetrieving {format} plates...')
 
 for shot in shotList:
     
-    shotName = shot+'_plt_'+label+'_v001'
+    shotName = shot+'_plate_'+label+'_v001'
     print(f'Copying  {shotName} ...')
     
     target = Path(f'{vfxDir}/{shot}/live_action/{shotName}/{format.lower()}')
