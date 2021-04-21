@@ -65,7 +65,10 @@ print(f'\nRetrieving {format} plates...')
 
 for shot in shotList:
     
-    shotName = shot+'_plate_'+label+'_v001'
+    if projectCode == 'room':
+        shotName = shot+'_plt_'+label+'_v001'
+    else:
+        shotName = shot+'_plate_'+label+'_v001'
     print(f'Copying  {shotName} ...')
     
     target = Path(f'{vfxDir}/{shot}/live_action/{shotName}/{format.lower()}')
